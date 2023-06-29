@@ -1,0 +1,13 @@
+pyvista[jupyter,trame] @ git+https://github.com/pyvista/pyvista@feat/sphinx-dynamic
+pydata-sphinx-theme
+pypandoc
+pytest-sphinx
+Sphinx
+sphinx-autobuild
+sphinx-copybutton
+sphinx-design
+sphinx-gallery
+sphinx-toolbox
+sphinxcontrib-asciinema
+sphinxcontrib-websupport
+typed-ast
