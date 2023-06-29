@@ -17,6 +17,10 @@ jobs:
           python-version: 3.11
       - name: Install dependencies
         run: pip install -r requirements.txt
+      - name: Install VTK
+        run: |
+          pip uninstall vtk -y
+          pip install --extra-index-url https://wheels.vtk.org vtk-osmesa
       - name: List
         run: pip list
       - name: Build Documentation
