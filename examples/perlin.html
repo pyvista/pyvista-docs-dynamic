@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Example &#8212; PyVista  documentation</title>
+    <title>Perlin Noise &#8212; PyVista  documentation</title>
   
   
   
@@ -42,7 +42,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/example';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/perlin';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Extract Edges" href="extract-edges.html" />
@@ -130,7 +130,7 @@
     
                     <li class="nav-item current active">
                       <a class="nav-link nav-internal" href="#">
-                        Example
+                        Perlin Noise
                       </a>
                     </li>
                 
@@ -291,7 +291,7 @@ document.write(`
     
                     <li class="nav-item current active">
                       <a class="nav-link nav-internal" href="#">
-                        Example
+                        Perlin Noise
                       </a>
                     </li>
                 
@@ -429,7 +429,7 @@ document.write(`
         <i class="fa-solid fa-home"></i>
       </a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">Example</li>
+    <li class="breadcrumb-item active" aria-current="page">Perlin Noise</li>
   </ul>
 </nav>
 </div>
@@ -448,40 +448,78 @@ document.write(`
                   
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p><a class="reference internal" href="#sphx-glr-download-examples-example-py"><span class="std std-ref">Go to the end</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-examples-perlin-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
-<section class="sphx-glr-example-title" id="example">
-<span id="sphx-glr-examples-example-py"></span><h1>Example<a class="headerlink" href="#example" title="Permalink to this heading">#</a></h1>
-<p>This a simple example.</p>
+<section class="sphx-glr-example-title" id="perlin-noise">
+<span id="sphx-glr-examples-perlin-py"></span><h1>Perlin Noise<a class="headerlink" href="#perlin-noise" title="Permalink to this heading">#</a></h1>
+<p>Here we use <code class="xref py py-func docutils literal notranslate"><span class="pre">pyvista.core.utilities.features.sample_function()</span></code> to sample
+Perlin noise over a region to generate random terrain.</p>
+<p>Video games like Minecraft use Perlin noise to create terrain.  Here,
+we create a voxelized mesh similar to a Minecraft “cave”.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyvista</span> <span class="k">as</span> <span class="nn">pv</span>
-<span class="kn">from</span> <span class="nn">pyvista</span> <span class="kn">import</span> <span class="n">examples</span>
+</pre></div>
+</div>
+</section>
+<section id="generate-perlin-noise-over-a-3d-structuredgrid">
+<h1>Generate Perlin Noise over a 3D StructuredGrid<a class="headerlink" href="#generate-perlin-noise-over-a-3d-structuredgrid" title="Permalink to this heading">#</a></h1>
+<p>Feel free to change the values of <code class="docutils literal notranslate"><span class="pre">freq</span></code> to change the shape of
+the “caves”.  For example, lowering the frequency will make the
+caves larger and more expansive, while a higher frequency in any
+direction will make the caves appear more “vein-like” and less open.</p>
+<p>Change the threshold to reduce or increase the percent of the
+terrain that is open or closed</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">freq</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">noise</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">perlin_noise</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">sample_function</span><span class="p">(</span><span class="n">noise</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="o">-</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">))</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="mf">0.02</span><span class="p">)</span>
+<span class="n">out</span>
+</pre></div>
+</div>
+<div class="output_subarea output_html rendered_html output_result">
+<table style='width: 100%;'><tr><th>Header</th><th>Data Arrays</th></tr><tr><td>
+<table style='width: 100%;'>
+<tr><th>UnstructuredGrid</th><th>Information</th></tr>
+<tr><td>N Cells</td><td>109863</td></tr>
+<tr><td>N Points</td><td>121638</td></tr>
+<tr><td>X Bounds</td><td>0.000e+00, 3.000e+00</td></tr>
+<tr><td>Y Bounds</td><td>0.000e+00, 1.000e+00</td></tr>
+<tr><td>Z Bounds</td><td>0.000e+00, 1.000e+00</td></tr>
+<tr><td>N Arrays</td><td>1</td></tr>
+</table>
 
-<span class="n">pl</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">Plotter</span><span class="p">()</span>
-<span class="n">pl</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">pv</span><span class="o">.</span><span class="n">Wavelet</span><span class="p">()</span><span class="o">.</span><span class="n">contour</span><span class="p">())</span>
-<span class="n">pl</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</td><td>
+<table style='width: 100%;'>
+<tr><th>Name</th><th>Field</th><th>Type</th><th>N Comp</th><th>Min</th><th>Max</th></tr>
+<tr><td><b>scalars</b></td><td>Points</td><td>float64</td><td>1</td><td>-6.143e-02</td><td>9.082e-01</td></tr>
+</table>
+
+</td></tr> </table>
+</div>
+<br />
+<br /><p>color limits without blue</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mn</span><span class="p">,</span> <span class="n">mx</span> <span class="o">=</span> <span class="p">[</span><span class="n">out</span><span class="p">[</span><span class="s1">&#39;scalars&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">out</span><span class="p">[</span><span class="s1">&#39;scalars&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+<span class="n">clim</span> <span class="o">=</span> <span class="p">(</span><span class="n">mn</span><span class="p">,</span> <span class="n">mx</span> <span class="o">*</span> <span class="mf">1.8</span><span class="p">)</span>
+
+<span class="n">out</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gist_earth_r&#39;</span><span class="p">,</span>
+    <span class="n">background</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span>
+    <span class="n">show_scalar_bar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">lighting</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">clim</span><span class="o">=</span><span class="n">clim</span><span class="p">,</span>
+    <span class="n">show_edges</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 
-    <iframe src='../_static/static_viewer.html?fileURL=../_images/sphx_glr_example_001.vtksz' width='100%%' height='400px' frameborder='0'></iframe>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mesh</span> <span class="o">=</span> <span class="n">examples</span><span class="o">.</span><span class="n">load_random_hills</span><span class="p">()</span>
-<span class="n">cntrs</span><span class="p">,</span> <span class="n">edges</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">contour_banded</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-
-<span class="n">pl</span> <span class="o">=</span> <span class="n">pv</span><span class="o">.</span><span class="n">Plotter</span><span class="p">()</span>
-<span class="n">pl</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">cntrs</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="s1">&#39;Scalars&#39;</span><span class="p">)</span>
-<span class="n">pl</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">pl</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-
-    <iframe src='../_static/static_viewer.html?fileURL=../_images/sphx_glr_example_002.vtksz' width='100%%' height='400px' frameborder='0'></iframe>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.439 seconds)</p>
-<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-examples-example-py">
+    <iframe src='../_static/static_viewer.html?fileURL=../_images/sphx_glr_perlin_001.vtksz' width='100%%' height='400px' frameborder='0'></iframe>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.341 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-examples-perlin-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/86d2c503aa409c12d833f1616d1fdb3f/example.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">example.py</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/cefbd4d70185e54f72471b89f99f776c/perlin.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">perlin.py</span></code></a></p>
 </div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/3d9931d424db2a84920f7da8d5f46a57/example.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">example.ipynb</span></code></a></p>
+<p><a class="reference download internal" download="" href="../_downloads/9c0a1088c8acef43848868dc111867f5/perlin.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">perlin.ipynb</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -499,9 +537,21 @@ to download the full example code</p>
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
   <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Perlin Noise</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-perlin-noise-over-a-3d-structuredgrid">Generate Perlin Noise over a 3D StructuredGrid</a></li>
+</ul>
+
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
   
   <div class="tocsection editthispage">
-    <a href="https://github.com/pyvista/pyvista/edit/main/doc/source/examples/example.rst">
+    <a href="https://github.com/pyvista/pyvista/edit/main/doc/source/examples/perlin.rst">
       <i class="fa-solid fa-pencil"></i>
       
       
