@@ -1,4 +1,4 @@
-pyvista[jupyter,trame] @ git+https://github.com/pyvista/pyvista@feat/sphinx-dynamic
+pyvista[jupyter,trame]>=0.40.0
 pydata-sphinx-theme
 pypandoc
 pytest-sphinx
