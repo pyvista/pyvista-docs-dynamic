@@ -1,4 +1,4 @@
-pyvista[jupyter,trame]>=0.40.0
+pyvista[jupyter,trame]>=0.43.1
 pydata-sphinx-theme
 pypandoc
 pytest-sphinx

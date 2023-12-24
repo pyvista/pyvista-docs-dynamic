@@ -3,7 +3,9 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
-import pyvista, os
+import os
+
+import pyvista
 from pyvista.plotting.utilities.sphinx_gallery import DynamicScraper
 
 # Manage errors
@@ -16,33 +18,34 @@ pyvista.set_plot_theme("document")
 
 # necessary when building the sphinx gallery
 pyvista.BUILDING_GALLERY = True
-os.environ['PYVISTA_BUILDING_GALLERY'] = 'true'
+os.environ["PYVISTA_BUILDING_GALLERY"] = "true"
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'PyVista'
-copyright = '2023, PyVista Developers'
-author = 'PyVista Developers'
+project = "PyVista"
+copyright = "2023, PyVista Developers"
+author = "PyVista Developers"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    'sphinx_gallery.gen_gallery',
-    'pyvista.ext.viewer_directive',
+    "sphinx_gallery.gen_gallery",
+    "pyvista.ext.plot_directive",
+    "pyvista.ext.viewer_directive",
+    "sphinx_design",
 ]
 
-templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-
+templates_path = ["_templates"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'pydata_sphinx_theme'
-html_static_path = ['_static']
+html_theme = "pydata_sphinx_theme"
+html_static_path = ["_static"]
 html_context = {
     "github_user": "pyvista",
     "github_repo": "pyvista",
@@ -106,7 +109,9 @@ sphinx_gallery_conf = {
     "doc_module": "pyvista",
     "image_scrapers": (DynamicScraper(), "matplotlib"),
     "first_notebook_cell": (
-        "%matplotlib inline\n" "from pyvista import set_plot_theme\n" "set_plot_theme('document')\n"
+        "%matplotlib inline\n"
+        "from pyvista import set_plot_theme\n"
+        "set_plot_theme('document')\n"
     ),
     # "reset_modules": (reset_pyvista,),
     "reset_modules_order": "both",
